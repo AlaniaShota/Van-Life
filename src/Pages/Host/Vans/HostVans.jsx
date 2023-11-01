@@ -1,15 +1,17 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { getHostVans } from '../../../utils/api'
+import { requireAuth } from '../../../utils/requireAuth'
 import HostVanLibrary from './Components/HostVanLibrary'
 
-export function loader() {
+
+export async function loader() {
+    await requireAuth()
     return getHostVans()
 }
 
 const HostVans = () => {
     const vans = useLoaderData()
-    console.log(vans);
 
     return (
         <section className='mx-[26px]'>
