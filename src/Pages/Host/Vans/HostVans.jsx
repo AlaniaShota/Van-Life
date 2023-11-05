@@ -1,12 +1,12 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { getHostVans } from '../../../utils/api'
-import { requireAuth } from '../../../utils/requireAuth'
+import RequireAuth from '../../../Components/ProtectedRoute'
 import HostVanLibrary from './Components/HostVanLibrary'
 
 
 export async function loader() {
-    await requireAuth()
+    RequireAuth()
     return getHostVans()
 }
 

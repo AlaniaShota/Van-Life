@@ -34,12 +34,11 @@ const Login = () => {
         }
     })
 
-
     return (
         <div className='flex flex-col justify-center mt-20'>
             <h1 className='text-[32px] font-bold leading-6 text-center'>Sign in to your account</h1>
             <div className='flex flex-col items-center justify-center mt-4'>
-                <form className='flex flex-col justify-evenly w-[500px] h-[250px]' onSubmit={formik.handleSubmit}>
+                <form className='flex flex-col justify-evenly w-[400px] h-[250px]' onSubmit={formik.handleSubmit}>
                     <TextField
                         id='email'
                         name='email'

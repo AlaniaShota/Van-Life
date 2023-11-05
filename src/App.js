@@ -25,65 +25,140 @@ import HostVansInfo from "./Pages/Host/Vans/HostVansInfo/HostVansInfo";
 import HostVansPricing from "./Pages/Host/Vans/HostVansPricing/HostVansPricing";
 import HostVansPhoto from "./Pages/Host/Vans/HostVansPhoto/HostVansPhoto";
 import ErrorPage from "./Pages/Error/404";
-import { requireAuth } from "./utils/requireAuth";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 import "./Server/server";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<Layout />}>
-      <Route index element={<Home />} />
-      <Route path="about" element={<About />} />
-      <Route path="vans" element={<Vans />} loader={vansLoader} />
-      <Route path="login" element={<Login />} />
-      <Route
-        path="vans/:id"
-        element={<VansSinglePage />}
-        loader={vansSinglePageLoader}
-      />
+  [
+    {
+      element: <Layout />,
+      children: [
+        {
+          index: "/",
+          element: <Home />,
+        },
+        {
+          path: "about",
+          element: <About />,
+        },
+        {
+          path: "vans",
+          element: <Vans />,
+          loader: vansLoader,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "vans/:id",
+          element: <VansSinglePage />,
+          loader: vansSinglePageLoader,
+        },
+        {
+          path: "host",
+          element: <HostLayout />,
+          children: [
+            {
+              index: "host",
+              element: <ProtectedRoute children={<Dashboard />} />,
+            },
+            {
+              path: "income",
+              element: <ProtectedRoute children={<Income />} />,
+            },
+            {
+              path: "reviews",
+              element: <ProtectedRoute children={<Reviews />} />,
+            },
+            {
+              path: "vans",
+              element: <HostVans />,
+              loader: hostVansLoader,
+            },
+            {
+              path: "vans/:id",
+              element: <HostVansDetail />,
+              loader: hostVansDetailLoader,
+              children: [
+                {
+                  index: "vans/:id",
+                  element: <ProtectedRoute children={<HostVansInfo />} />,
+                },
+                {
+                  path: "pricing",
+                  element: <ProtectedRoute children={<HostVansPricing />} />,
+                },
+                {
+                  path: "photo",
+                  element: <ProtectedRoute children={<HostVansPhoto />} />,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: "*",
+          element: <ErrorPage />,
+        },
+      ],
+    },
+  ],
+  // createRoutesFromElements(
+  //   <Route element={<Layout />}>
+  //     <Route index element={<Home />} />
+  //     <Route path="about" element={<About />} />
+  //     <Route path="vans" element={<Vans />} loader={vansLoader} />
+  //     <Route path="login" element={<Login />} />
+  //     <Route
+  //       path="vans/:id"
+  //       element={<VansSinglePage />}
+  //       loader={vansSinglePageLoader}
+  //     />
 
-      <Route path="host" element={<HostLayout />}>
-        <Route
-          index
-          element={<Dashboard />}
-          loader={async () => await requireAuth()}
-        />
-        <Route
-          path="income"
-          element={<Income />}
-          loader={async () => await requireAuth()}
-        />
-        <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
-        <Route
-          path="vans/:id"
-          element={<HostVansDetail />}
-          loader={hostVansDetailLoader}
-        >
-          <Route
-            index
-            element={<HostVansInfo />}
-            loader={async () => await requireAuth()}
-          />
-          <Route
-            path="pricing"
-            element={<HostVansPricing />}
-            loader={async () => await requireAuth()}
-          />
-          <Route
-            path="photo"
-            element={<HostVansPhoto />}
-            loader={async () => await requireAuth()}
-          />
-        </Route>
-        <Route
-          path="reviews"
-          element={<Reviews />}
-          loader={async () => await requireAuth()}
-        />
-      </Route>
-      <Route path="*" element={<ErrorPage />} />
-    </Route>,
-  ),
+  //     <Route path="host" element={<HostLayout />}>
+  //       <Route
+  //         index
+  //         element={<Dashboard />}
+  //         loader={async () => await requireAuth()}
+  //       />
+  //       <Route
+  //         path="income"
+  //         element={<Income />}
+  //         loader={async () => await requireAuth()}
+  //       />
+  //       <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
+  //       <Route
+  //         path="vans/:id"
+  //         element={<HostVansDetail />}
+  //         loader={hostVansDetailLoader}
+  //       >
+  //         <Route
+  //           index
+  //           element={<HostVansInfo />}
+  //           loader={async () => await requireAuth()}
+  //         />
+  //         <Route
+  //           path="pricing"
+  //           element={<HostVansPricing />}
+  //           loader={async () => await requireAuth()}
+  //         />
+  //         <Route
+  //           path="photo"
+  //           element={<HostVansPhoto />}
+  //           loader={async () => await requireAuth()}
+  //         />
+  //       </Route>
+  //       <Route
+  //         path="reviews"
+  //         element={<Reviews />}
+  //         loader={async () => await requireAuth()}
+  //       />
+  //     </Route>
+  //     <Route path="*" element={<ErrorPage />} />
+  //   </Route>,
+  // ),
 );
 
 function App() {
