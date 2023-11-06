@@ -1,15 +1,16 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-const ProtectedRoute = ({ test }) => {
-  const isLog = false;
+const ProtectedRoute = ({ loading }) => {
+  const isLog = localStorage.getItem('loggedin');
   const location = useLocation();
+
   return isLog ? (
     <>
-      {test}
+      {loading}
     </>
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/login?message=You must log in first" state={{ from: location }} replace />
   );
 };
 

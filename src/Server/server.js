@@ -3,6 +3,7 @@ import { createServer, Model } from "miragejs";
 createServer({
   models: {
     vans: Model,
+    users: Model,
   },
 
   seeds(server) {
@@ -127,21 +128,30 @@ createServer({
       type: "luxury",
       hostId: "789",
     });
-    server.create("van", {
-      id: "12",
-      name: "Green Wonder",
-      price: 70,
-      description:
-        "With this van, you can take your travel life to the next level. The Green Wonder is a sustainable vehicle that's perfect for people who are looking for a stylish, eco-friendly mode of transport that can go anywhere.",
-      imageUrl:
-        "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
-      type: "rugged",
-      hostId: "123",
-    });
+    server.create(
+      "van",
+      {
+        id: "12",
+        name: "Green Wonder",
+        price: 70,
+        description:
+          "With this van, you can take your travel life to the next level. The Green Wonder is a sustainable vehicle that's perfect for people who are looking for a stylish, eco-friendly mode of transport that can go anywhere.",
+        imageUrl:
+          "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
+        type: "rugged",
+        hostId: "123",
+      },
+      server.create("user", {
+        id: "123",
+        email: "test@test.com",
+        password: "123456655",
+        name: "Test",
+      }),
+    );
   },
   routes() {
     this.namespace = "api";
-    this.logging = true;
+    this.logging = false
     // this.timing = 2000
 
     this.get("/vans", (schema, request) => {
@@ -160,6 +170,23 @@ createServer({
     this.get("/host/vans/:id", (schema, request) => {
       const id = request.params.id;
       return schema.vans.findBy({ id, hostId: "123" });
+    });
+
+    this.post("/login", (schema, request) => {
+      const { email, password } = JSON.parse(request.requestBody);
+      const foundUser = schema.users.findBy({ email, password });
+      if (!foundUser) {
+        return new Response(
+          401,
+          {},
+          { message: "No user with those credentials found!" },
+        );
+      }
+      foundUser.password = undefined;
+      return {
+        user: foundUser,
+        token: "Enjoy your pizza, here's your tokens.",
+      };
     });
   },
 });
