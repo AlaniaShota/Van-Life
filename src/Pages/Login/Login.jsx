@@ -56,30 +56,6 @@ const Login = () => {
             password: ''
         },
         validationSchema,
-        //ვტესტავ action 
-        // onSubmit: async (values, { setSubmitting, resetForm }) => {
-        //     try {
-        //         const response = await fetch('/api/login', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: JSON.stringify(values),
-        //         });
-
-        //         if (response.ok) {
-        //             console.log('Success');
-        //             navigate('/host', { replace: true })
-        //             resetForm();
-        //         } else {
-        //             console.error('Error');
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     } finally {
-        //         setSubmitting(false);
-        //     }
-        // },
     })
 
     const handlePopoverOpen = (event) => {
@@ -93,7 +69,7 @@ const Login = () => {
     const open = Boolean(anchorEl);
 
     return (
-        <div className='flex flex-col justify-center items-center mt-20'>
+        <div className='flex flex-col justify-center items-center mt-[118px]'>
             <div className='flex justify-center items-center border border-black rounded-full ml-[377px] w-[20px] h-[20px] cursor-pointer'>
                 <Typography
                     aria-owns={open ? 'mouse-over-popover' : undefined}

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const HostVanLibrary = ({ vans }) => {
+
     return (
         <>
             {vans.map(item => (
@@ -15,7 +16,6 @@ const HostVanLibrary = ({ vans }) => {
                     </div>
                 </Link>
             ))}
-
         </>
     )
 }

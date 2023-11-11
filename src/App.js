@@ -8,7 +8,7 @@ import VansSinglePage, {
 } from "./Pages/Vans/vansSinglePage";
 import Login, { loader as loginLoader, action as loginAction } from "./Pages/Login/Login";
 import Layout from "./Components/Layout";
-import Dashboard from "./Pages/Host/Dashboard";
+import Dashboard, {loader as dashboardLoader} from "./Pages/Host/Dashboard";
 import Reviews from "./Pages/Host/Reviews";
 import Income from "./Pages/Host/Income";
 import HostLayout from "./Components/HostLayout";
@@ -59,6 +59,7 @@ const router = createBrowserRouter([
           {
             index: "host",
             element: <ProtectedRoute loading={<Dashboard />} />,
+            loader: dashboardLoader
           },
           {
             path: "income",

@@ -11,7 +11,7 @@ const VansSinglePage = () => {
     const van = useLoaderData()
 
     return (
-        <div className='m-5'>
+        <div className='m-[47px]'>
             <VanCard
                 name={van.name}
                 price={van.price}

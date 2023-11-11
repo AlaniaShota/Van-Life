@@ -34,7 +34,7 @@ const Header = () => {
                     <Link to="login" >
                         <FontAwesomeIcon icon={faCircleUser} size='xl' />
                     </Link >
-                    <button onClick={() => fakeLogOut()}>X</button>
+                    {/* <button onClick={() => fakeLogOut()}>X</button> */}
                 </nav>
             </header>
         </>

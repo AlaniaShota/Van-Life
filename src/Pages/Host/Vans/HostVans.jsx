@@ -3,7 +3,6 @@ import { useLoaderData } from 'react-router-dom'
 import { getHostVans } from '../../../utils/api'
 import HostVanLibrary from './Components/HostVanLibrary'
 
-
 export async function loader() {
     return getHostVans()
 }
